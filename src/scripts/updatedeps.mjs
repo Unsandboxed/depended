@@ -22,7 +22,7 @@ function Promise_all(values) {
   }); 
 }
 
-await new Promise(async (resolve, reject) => {
+export default ((deps) => new Promise(async (resolve, reject) => {
   const lock = await new Promise((resolve, reject) => {
     fs.readFile('package-lock.json', 'utf8').then(lock => {
       try {
@@ -67,11 +67,10 @@ await new Promise(async (resolve, reject) => {
       return true;
     };
     let res = false;
-    if (res = ((await Promise_all([
-      updateDep('scratch-vm'),
-      updateDep('scratch-render'),
-      updateDep('scratch-blocks', 'develop-builds')
-    ])).find(item => (typeof item === 'string')))) throw `Failed to update ${res}`;
+    if (res = ((await Promise_all(deps.map(dep => {
+      if (Array.isArray(dep)) return updateDep(...dep);
+      return updateDep(dep);
+    }))).find(item => (typeof item === 'string')))) throw `Failed to update ${res}`;
     res = true;
     console.log('Updated dependancies\nRun:\n1. git add .\n2. git commit -m "Update dependancies"\n3. git push');
     resolve();
@@ -80,4 +79,4 @@ await new Promise(async (resolve, reject) => {
     console.error(err);
     resolve();
   });
-});
+}));
