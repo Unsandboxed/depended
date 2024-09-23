@@ -1,0 +1,13 @@
+{
+  "name": "depended",
+  "version": "1.0.0",
+  "description": "Not ready for you to use yet :)",
+  "main": "src/index.mjs",
+  "scripts": {},
+  "keywords": [],
+  "author": "Miyo Sho",
+  "license": "GPLv3",
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  }
+}
