@@ -52,7 +52,7 @@ export default ((deps) => new Promise(async (resolve, reject) => {
       if (sha === res.sha) return true;
       console.log(`Updating ${name}`);
       await new Promise((resolve, reject) => {
-        const cmd = ['npm', ['install', name, `github:Unsandboxed/${name}#${branch}`, '--package-lock-only']];
+        const cmd = ['npm', ['update', name]];
         console.log('Running', cmd);
         const child = childProcess.spawn(...cmd, {
           cwd: path.join(__dirname, '../')
